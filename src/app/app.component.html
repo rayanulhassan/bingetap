@@ -3,17 +3,22 @@
     <img class="w-32" [src]="isDarkMode() ? './../assets/imgs/main-logo-dark.png' : './../assets/imgs/main-logo.png'">
   </div>
 
-  <div class="absolute top-2">
+  <div class="absolute top-2 z-20">
     <button class="btn-sqr">
       <ng-icon [color]="iconColor()" size="1.5rem" name="heroAdjustmentsHorizontalSolid"></ng-icon>
     </button>
   </div>
 
-  <div class="absolute top-2 right-2">
+  <div  class="absolute top-2 right-2 z-20">
     <div class="flex flex-col gap-1">
       <div>
         <button class="btn-sqr">
           <ng-icon [color]="iconColor()" size="1.5rem" name="heroInformationCircle"></ng-icon>
+        </button>
+      </div>
+      <div>
+        <button (click)="toggleFullScreen()" class="btn-sqr">
+          <ng-icon [color]="iconColor()" size="1.5rem" name="phosphorCornersOut"></ng-icon>
         </button>
       </div>
     </div>
@@ -28,38 +33,39 @@
           <li class="text-sm text-secondary">Total laps: {{'2' | number}}</li>
         </ul>
       </div>
-      <button class="btn-sqr">
+      <button class="btn-sqr z-20">
         <ng-icon [color]="iconColor()" size="1.5rem" name="phosphorFloppyDisk"></ng-icon>
         <span class="text-secondary">Enable Autosave</span>
       </button>
     </div>
   </div>
 
-  <div class="absolute bottom-6 right-2">
+  <div class="absolute bottom-6 right-2 z-20">
     <div>
-      <button class="btn-sqr">
+      <button (click)="onReset()" class="btn-sqr">
         <ng-icon [color]="iconColor()" size="1.5rem" name="phosphorArrowCounterClockwise"></ng-icon>
         <span class="text-secondary">Reset Counter</span>
-
       </button>
     </div>
   </div>
 
-  <div class="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center ">
+  <div class="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center">
     <div class="text-9xl font-bold text-secondary">
-      {{ '100' | number}}
+      {{ tapCount() | number}}
     </div>
     <span class="text-secondary">Start tapping! :)</span>
   </div>
 
+  <div (click)="onTap()" class="absolute top-0 left-0 w-full h-screen z-10">
+  </div>
+
   <footer>
-    <div class="absolute w-full bottom-0 left-0 px-2">
+    <div class="absolute w-full bottom-0 left-0 px-2 z-20">
       <div class="flex justify-between">
         <p class="text-center text-xs text-secondary opacity-40"><a href="mailto:rayanulhassan@outlook.com">Contact Developer</a></p>
         <p class="text-center text-xs text-secondary opacity-40">Made with ❤️ in Angular</p>
         <p class="text-center text-xs text-secondary opacity-40">Github</p>
-      </div>
-      
+      </div> 
     </div>
   </footer>
 

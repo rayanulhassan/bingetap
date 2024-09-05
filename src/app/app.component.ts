@@ -1,12 +1,21 @@
-import { afterNextRender, Component, computed, signal } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroAdjustmentsHorizontalSolid } from '@ng-icons/heroicons/solid';
 import { heroInformationCircle } from '@ng-icons/heroicons/outline';
 import {
   phosphorFloppyDisk,
   phosphorArrowCounterClockwise,
+  phosphorCornersOut,
 } from '@ng-icons/phosphor-icons/regular';
 import { DecimalPipe } from '@angular/common';
+import { UiService } from './services/ui.service';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -20,12 +29,16 @@ import { DecimalPipe } from '@angular/common';
       phosphorFloppyDisk,
       heroInformationCircle,
       phosphorArrowCounterClockwise,
+      phosphorCornersOut,
     }),
   ],
 })
 export class AppComponent {
+  private uiService = inject(UiService);
+
   title = 'bingetap';
   isDarkMode = signal<boolean>(false);
+  tapCount = signal<number>(0);
 
   iconColor = computed(() => {
     return this.isDarkMode() ? '#F5F4F4' : '#333333';
@@ -47,5 +60,17 @@ export class AppComponent {
           else this.isDarkMode.set(false);
         });
     });
+  }
+
+  toggleFullScreen() {
+    this.uiService.toggleFullscreen();
+  }
+
+  onTap(){
+    this.tapCount.set(this.tapCount() + 1);
+  }
+
+  onReset(){
+    this.tapCount.set(0);
   }
 }
