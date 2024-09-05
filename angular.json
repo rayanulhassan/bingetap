@@ -101,14 +101,6 @@
             ],
             "scripts": []
           }
-        },
-        "deploy": {
-          "builder": "@netlify-builder/deploy:deploy",
-          "options": {
-            "outputPath": "dist/bingetap",
-            "netlifyToken": "nfp_M6yoEcnvRVE8A7bbqdy81jkZn6dFqfcM9f76",
-            "siteId": ""
-          }
         }
       }
     }
