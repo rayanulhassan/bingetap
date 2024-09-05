@@ -4,6 +4,34 @@
 @tailwind utilities;
 
 .body {
-  font-family: "Inter", sans-serif;
+  font-family: "League Spartan", sans-serif;
   font-optical-sizing: auto;
+}
+
+.btn-sqr {
+  @apply p-1 flex items-start gap-1 border-2 border-r-4 border-b-4 border-secondary rounded-md;
+}
+
+@layer base {
+  :root {
+    --color-primary: 245 245 244;
+    --color-secondary: 51 51 51;
+  }
+
+  :root[data-theme="light"] {
+    --color-primary: 245 245 244;
+    --color-secondary: 51 51 51;
+  }
+
+  :root[data-theme="dark"] {
+    --color-primary: 51 51 51;
+    --color-secondary: 245 245 244;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-primary: 51 51 51;
+      --color-secondary: 245 245 244;
+    }
+  }
 }
