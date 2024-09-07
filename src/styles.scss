@@ -3,35 +3,44 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    --color-bg: 238 234 227;
+    --color-primary: 238 238 238;
+    --color-accent: 60 64 43;
+    --color-text: 60 64 43;
+  }
+
+  :root[data-theme="light"] {
+    --color-bg: 238 234 227;
+    --color-primary: 238 238 238;
+    --color-accent: 60 64 43;
+    --color-text: 60 64 43;
+  }
+  
+  :root[data-theme="dark"] {
+    --color-bg: 45 42 37;
+    --color-primary: 52 51 48;
+    --color-accent: 50 49 47;
+    --color-text: 60 64 43;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg: 45 42 37;
+      --color-primary: 52 51 48;
+      --color-accent: 50 49 47;
+      --color-text: 60 64 43;
+    }
+  }
+}
+
 .body {
   font-family: "League Spartan", sans-serif;
   font-optical-sizing: auto;
 }
 
 .btn-sqr {
-  @apply p-1 flex items-start gap-1 border-2 border-r-4 border-b-4 border-secondary rounded-md;
+  @apply p-1 flex items-start gap-1 border-2 border-r-4 border-b-4 border-accent rounded-md;
 }
 
-@layer base {
-  :root {
-    --color-primary: 245 245 244;
-    --color-secondary: 51 51 51;
-  }
-
-  :root[data-theme="light"] {
-    --color-primary: 245 245 244;
-    --color-secondary: 51 51 51;
-  }
-
-  :root[data-theme="dark"] {
-    --color-primary: 51 51 51;
-    --color-secondary: 245 245 244;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --color-primary: 51 51 51;
-      --color-secondary: 245 245 244;
-    }
-  }
-}

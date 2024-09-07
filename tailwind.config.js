@@ -6,8 +6,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        background: "rgb(var(--color-bg) / <alpha-value>)",
         primary: "rgb(var(--color-primary) / <alpha-value>)",
-        secondary: "rgb(var(--color-secondary) / <alpha-value>)",
+        accent: "rgb(var(--color-accent) / <alpha-value>)",
+        text: "rgb(var(--color-text) / <alpha-value>)",
       }
     },
   },
