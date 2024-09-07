@@ -9,7 +9,8 @@ module.exports = {
         background: "rgb(var(--color-bg) / <alpha-value>)",
         primary: "rgb(var(--color-primary) / <alpha-value>)",
         accent: "rgb(var(--color-accent) / <alpha-value>)",
-        text: "rgb(var(--color-text) / <alpha-value>)",
+        'text-primary': "rgb(var(--color-text-primary) / <alpha-value>)",
+        'text-accent': "rgb(var(--color-text-accent) / <alpha-value>)",
       }
     },
   },

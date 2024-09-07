@@ -8,29 +8,33 @@
     --color-bg: 238 234 227;
     --color-primary: 238 238 238;
     --color-accent: 60 64 43;
-    --color-text: 60 64 43;
+    --color-text-primary: 60 64 43;
+    --color-text-accent: 238 238 238;
   }
 
   :root[data-theme="light"] {
     --color-bg: 238 234 227;
     --color-primary: 238 238 238;
     --color-accent: 60 64 43;
-    --color-text: 60 64 43;
+    --color-text-primary: 60 64 43;
+    --color-text-accent: 238 238 238;
   }
   
   :root[data-theme="dark"] {
     --color-bg: 45 42 37;
-    --color-primary: 52 51 48;
+    --color-primary: 18 18 18;
     --color-accent: 50 49 47;
-    --color-text: 60 64 43;
+    --color-text-primary: 238 238 238;
+    --color-text-accent: 238 238 238;
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
       --color-bg: 45 42 37;
-      --color-primary: 52 51 48;
+      --color-primary: 18 18 18;
       --color-accent: 50 49 47;
-      --color-text: 60 64 43;
+      --color-text-primary: 238 238 238;
+      --color-text-accent: 238 238 238;
     }
   }
 }
