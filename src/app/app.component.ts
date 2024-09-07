@@ -16,7 +16,7 @@ import {
 import { DecimalPipe } from '@angular/common';
 import { UiService } from './services/ui.service';
 
-import { ButtonComponent } from './components/button/button.component';
+import { ButtonComponent } from './components/ui/button/button.component';
 
 @Component({
   selector: 'app-root',
