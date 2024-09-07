@@ -8,7 +8,8 @@
 
     <!-- Settings button -->
     <div class="absolute top-2 z-20">
-      <app-button [icon]="'heroAdjustmentsHorizontalSolid'" [enableBorder]="true"></app-button>
+      <app-button (click)="openSettingsModal()" [icon]="'heroAdjustmentsHorizontalSolid'"
+        [enableBorder]="true"></app-button>
     </div>
 
 
@@ -46,33 +47,35 @@
             <li class="text-sm text-accent">Total laps: {{'2' | number}}</li>
           </ul>
         </div>
-        
-        <app-button class="z-20" [text]="'Enable Autosave'" [icon]="'phosphorFloppyDisk'" [enableBorder]="true"></app-button>
+        <app-button class="z-20" [text]="'Enable Autosave'" [icon]="'phosphorFloppyDisk'"
+          [enableBorder]="true"></app-button>
 
       </div>
     </div>
-  
+
     <div class="absolute bottom-2 right-2 z-20">
       <div>
-        <app-button (click)="onReset()" [text]="'Reset Counter'" [icon]="'phosphorArrowCounterClockwise'" [enableBorder]="true"></app-button>
+        <app-button (click)="onReset()" [text]="'Reset Counter'" [icon]="'phosphorArrowCounterClockwise'"
+          [enableBorder]="true"></app-button>
       </div>
     </div>
 
-    <div (click)="onTap()" class="absolute top-0 left-0 w-full h-screen z-10">
+    <div (click)="onTap()" style="background-image: url();"
+      class="absolute top-0 left-0 w-full h-screen z-10 bg-contain bg-no-repeat bg-center">
     </div>
   </main>
 
-  
   <footer>
-    <div class="absolute w-full bottom-2 left-0 px-2">
+    <div class="sm:absolute sm:w-full sm:bottom-2 sm:left-0">
       <div class="flex flex-col justify-around gap-y-1">
         <p class="text-center text-xs text-accent opacity-60">Bingetap is, and always will be <b>free</b></p>
         <div class="text-center">
           @for (item of footerLinks(); track $index) {
-            <a class="underline text-accent opacity-60 text-xs" [href]="item.url">{{item.title}}</a>
-            @if (!$last) {
-              <span class="mx-2 text-accent opacity-60">|</span>
-            }
+          <a class="relative underline text-accent hover:font-semibold hover:text-accent hover:underline opacity-60 text-xs z-20"
+            [href]="item.url">{{item.title}}</a>
+          @if (!$last) {
+          <span class="mx-2 text-accent opacity-60">|</span>
+          }
           }
         </div>
         <p class="text-center text-xs text-accent opacity-40">Made with ❤️ in Angular</p>

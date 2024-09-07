@@ -1,0 +1,134 @@
+<div class="flex flex-col gap-y-2">
+    <div>
+        <div class="w-full flex justify-between bg-primary p-3 rounded-t-md">
+            <div>
+                <div class="text-text-primary font-semibold">Vibrate on tap</div>
+            </div>
+            <div class="flex items-center">
+                <app-switchbox></app-switchbox>
+            </div>
+        </div>
+        <div
+            class="px-1 py-1 flex items-center gap-x-1 text-[10px] text-text-accent bg-accent/50 dark:bg-accent/90 rounded-b-md">
+            <ng-icon size="1rem" name="heroInformationCircle"></ng-icon>
+            <span>
+                This feature is not available on all browsers
+            </span>
+        </div>
+    </div>
+
+    <div>
+        <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-t-md">
+            <div class="flex flex-row justify-between items-center">
+                <div>
+                    <div class="text-text-primary font-semibold">Enable sound on tap</div>
+                </div>
+                <div class="flex items-center">
+                    <select class="w-24 p-1 rounded-sm">
+                        <option>None</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                        <option>Option 4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-t-md">
+            <div class="flex flex-row justify-between items-center">
+                <div>
+                    <div class="text-text-primary font-semibold">Enable laps</div>
+                </div>
+                <div class="flex items-center">
+                    <app-switchbox></app-switchbox>
+                </div>
+            </div>
+
+            <div class="pl-2 pt-2 flex flex-col gap-y-2">
+                <div class="w-full flex gap-x-2 justify-between bg-primary rounded-t-md">
+                    <div class="flex items-center">
+                        <div class="text-text-primary">Taps per lap</div>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="number" placeholder="100" class="w-24 p-1 rounded-sm" />
+                    </div>
+                </div>
+
+
+
+                <div class="w-full flex gap-x-2 justify-between bg-primary rounded-t-md">
+                    <div class="flex items-center">
+                        <div class="text-text-primary">Lap completion indicator</div>
+                    </div>
+                    <div class="flex items-center">
+                        <select class="w-24 p-1 rounded-sm">
+                            <option>None</option>
+                            <option>Vibrate</option>
+                            <option>Flash</option>
+                            <option>Sound</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-t-md">
+            <div class="flex flex-row justify-between items-center">
+                <div>
+                    <div class="text-text-primary font-semibold">Sound on tap</div>
+                </div>
+                <div class="flex items-center">
+                    <select class="w-24 p-1 rounded-sm">
+                        <option>None</option>
+                        <option>Option 2</option>
+                        <option>Option 3</option>
+                        <option>Option 4</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-t-md">
+            <div class="flex flex-row justify-between items-center">
+                <div>
+                    <div class="text-text-primary font-semibold">Set background image</div>
+                </div>
+                <div class="flex items-center">
+                    <input type="file" accept="image/*" class="w-24 p-1 rounded-sm" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-t-md">
+            <div class="flex flex-row justify-between items-center">
+                <div>
+                    <div class="text-text-primary font-semibold">Counter color</div>
+                </div>
+                <div class="flex items-center">
+                    <nz-color-picker></nz-color-picker>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="w-full flex justify-between bg-primary p-3 rounded-t-md">
+            <div>
+                <div class="text-text-primary font-semibold">Enable autosave</div>
+            </div>
+            <div class="flex items-center">
+                <app-switchbox></app-switchbox>
+            </div>
+        </div>
+    </div>
+</div>

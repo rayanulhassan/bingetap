@@ -15,16 +15,17 @@ import {
 } from '@ng-icons/phosphor-icons/regular';
 import { DecimalPipe } from '@angular/common';
 import { UiService } from './services/ui.service';
-
+import { NzModalService } from 'ng-zorro-antd/modal';
 import { ButtonComponent } from './components/ui/button/button.component';
+import { SettingsModalComponent } from './components/settings-modal/settings-modal.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [NgIconComponent, DecimalPipe, ButtonComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
   providers: [
+    NzModalService,
     provideIcons({
       heroAdjustmentsHorizontalSolid,
       phosphorFloppyDisk,
@@ -36,6 +37,7 @@ import { ButtonComponent } from './components/ui/button/button.component';
 })
 export class AppComponent {
   private uiService = inject(UiService);
+  private modelService = inject(NzModalService);
 
   title = 'bingetap';
   isDarkMode = signal<boolean>(false);
@@ -62,6 +64,8 @@ export class AppComponent {
         this.isDarkMode.set(true);
       else this.isDarkMode.set(false);
 
+      this.openSettingsModal()
+
       window
         .matchMedia('(prefers-color-scheme: dark)')
         .addEventListener('change', (event) => {
@@ -81,5 +85,14 @@ export class AppComponent {
 
   onReset() {
     this.tapCount.set(0);
+  }
+
+  openSettingsModal() {
+    this.modelService.create({
+      nzTitle: 'Settings',
+      nzContent: SettingsModalComponent,
+      nzFooter: null,
+      
+    });
   }
 }

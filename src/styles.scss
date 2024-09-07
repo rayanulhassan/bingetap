@@ -3,6 +3,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "../node_modules/ng-zorro-antd/ng-zorro-antd.min.css";
+
 @layer base {
   :root {
     --color-bg: 238 234 227;
@@ -46,5 +48,15 @@
 
 .btn-sqr {
   @apply p-1 flex items-start gap-1 border-2 border-r-4 border-b-4 border-accent rounded-md;
+}
+
+.ant-modal-content {
+  @apply rounded-md bg-background;
+  .ant-modal-header {
+    @apply rounded-t-md bg-background border-none text-center font-bold;
+    .ant-modal-title {
+      @apply text-xl font-extrabold text-text-primary;
+    }
+  }
 }
 
