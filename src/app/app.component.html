@@ -1,71 +1,84 @@
 <div class="p-2 w-full relative h-screen max-h-screen bg-background">
-  <div class="flex justify-center">
-    <img class="w-32" [src]="isDarkMode() ? './../assets/imgs/main-logo-dark.png' : './../assets/imgs/main-logo.png'">
-  </div>
+  <header>
+    <!-- logo image -->
+    <div class="flex justify-center">
+      <img class="w-32" alt="bingetap logo"
+        [src]="isDarkMode() ? './../assets/imgs/bingetap-logo-dark.png' : './../assets/imgs/bingetap-logo.png'">
+    </div>
 
-  <div class="absolute top-2 z-20">
-    <button class="btn-sqr">
-      <ng-icon [color]="iconColor()" size="1.5rem" name="heroAdjustmentsHorizontalSolid"></ng-icon>
-    </button>
-  </div>
+    <!-- Settings button -->
+    <div class="absolute top-2 z-20">
+      <app-button [icon]="'heroAdjustmentsHorizontalSolid'" [enableBorder]="true"></app-button>
+    </div>
 
-  <div  class="absolute top-2 right-2 z-20">
-    <div class="flex flex-col gap-1">
-      <div>
-        <button class="btn-sqr">
-          <ng-icon [color]="iconColor()" size="1.5rem" name="heroInformationCircle"></ng-icon>
-        </button>
+
+    <div class="absolute top-2 right-2 z-20">
+      <div class="flex flex-col gap-1">
+        <!-- Information button -->
+        <div>
+          <app-button [icon]="'heroInformationCircle'" [enableBorder]="true"></app-button>
+        </div>
+
+        <!-- Fullscreen button -->
+        <div>
+          <app-button (click)="toggleFullScreen()" [icon]="'phosphorCornersOut'" [enableBorder]="true"></app-button>
+        </div>
       </div>
-      <div>
-        <button (click)="toggleFullScreen()" class="btn-sqr">
-          <ng-icon [color]="iconColor()" size="1.5rem" name="phosphorCornersOut"></ng-icon>
-        </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Counter -->
+    <div class="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center">
+      <div class="text-[10rem] font-bold text-text-primary">
+        {{ tapCount() | number}}
+      </div>
+      <span class="text-accent">Start tapping anywhere on screen! :)</span>
+    </div>
+
+    <div class="absolute bottom-2 left-2">
+      <div class="flex flex-col gap-2">
+        <!-- stats -->
+        <div>
+          <ul class="opacity-60">
+            <li class="text-sm text-accent">Tap Speed: {{'20' | number}}/min</li>
+            <li class="text-sm text-accent">Tap this lap: {{'209' | number}}</li>
+            <li class="text-sm text-accent">Total laps: {{'2' | number}}</li>
+          </ul>
+        </div>
+        
+        <app-button class="z-20" [text]="'Enable Autosave'" [icon]="'phosphorFloppyDisk'" [enableBorder]="true"></app-button>
+
       </div>
     </div>
-  </div>
-
-  <div class="absolute bottom-6 left-2">
-    <div class="flex flex-col gap-2">
+  
+    <div class="absolute bottom-2 right-2 z-20">
       <div>
-        <ul class="opacity-60">
-          <li class="text-sm text-accent">Tap Speed: {{'20' | number}}/min</li>
-          <li class="text-sm text-accent">Tap this lap: {{'209' | number}}</li>
-          <li class="text-sm text-accent">Total laps: {{'2' | number}}</li>
-        </ul>
+        <app-button (click)="onReset()" [text]="'Reset Counter'" [icon]="'phosphorArrowCounterClockwise'" [enableBorder]="true"></app-button>
       </div>
-      <button class="btn-sqr z-20">
-        <ng-icon [color]="iconColor()" size="1.5rem" name="phosphorFloppyDisk"></ng-icon>
-        <span class="text-accent">Enable Autosave</span>
-      </button>
     </div>
-  </div>
 
-  <div class="absolute bottom-6 right-2 z-20">
-    <div>
-      <button (click)="onReset()" class="btn-sqr">
-        <ng-icon [color]="iconColor()" size="1.5rem" name="phosphorArrowCounterClockwise"></ng-icon>
-        <span class="text-accent">Reset Counter</span>
-      </button>
+    <div (click)="onTap()" class="absolute top-0 left-0 w-full h-screen z-10">
     </div>
-  </div>
+  </main>
 
-  <div class="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center">
-    <div class="text-9xl font-bold text-accent">
-      {{ tapCount() | number}}
-    </div>
-    <span class="text-accent">Start tapping! :)</span>
-  </div>
-
-  <div (click)="onTap()" class="absolute top-0 left-0 w-full h-screen z-10">
-  </div>
-
+  
   <footer>
-    <div class="absolute w-full bottom-0 left-0 px-2 z-20">
-      <div class="flex justify-between">
-        <p class="text-center text-xs text-accent opacity-40"><a href="mailto:rayanulhassan@outlook.com">Contact Developer</a></p>
+    <div class="absolute w-full bottom-2 left-0 px-2">
+      <div class="flex flex-col justify-around gap-y-1">
+        <p class="text-center text-xs text-accent opacity-60">Bingetap is, and always will be <b>free</b></p>
+        <div class="text-center">
+          @for (item of footerLinks(); track $index) {
+            <a class="underline text-accent opacity-60 text-xs" [href]="item.url">{{item.title}}</a>
+            @if (!$last) {
+              <span class="mx-2 text-accent opacity-60">|</span>
+            }
+          }
+          
+         
+        </div>
         <p class="text-center text-xs text-accent opacity-40">Made with ❤️ in Angular</p>
-        <p class="text-center text-xs text-accent opacity-40">Github</p>
-      </div> 
+      </div>
     </div>
   </footer>
 

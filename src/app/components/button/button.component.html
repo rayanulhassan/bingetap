@@ -1,0 +1,17 @@
+<button class="p-2 flex items-start gap-1 transform translate-x-0 transition-all ease-in duration-200  border-accent cursor-pointer"
+    [ngClass]="{
+        'bg-primary': !isActive(),
+        'bg-accent': isActive(),
+        'border-2 border-r-4 border-b-4': enableBorder(),
+        'border shadow-sm shadow-accent/10':!enableBorder(),
+        'rounded-md':!isRound(),
+        'rounded-full': isRound()
+    }">
+    @if (icon()) {
+    <ng-icon [ngClass]="{'text-text-primary':!isActive(),'text-text-accent':isActive()}" [size]="iconSize()"
+        [name]="icon()"></ng-icon>
+    }
+    @if (text()) {
+    <span class="text-center" [ngClass]="{'text-text-primary':!isActive(),'text-text-accent':isActive()}">{{text()}}</span>
+    }
+</button>

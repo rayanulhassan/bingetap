@@ -15,12 +15,13 @@ import {
 } from '@ng-icons/phosphor-icons/regular';
 import { DecimalPipe } from '@angular/common';
 import { UiService } from './services/ui.service';
-import { timeout } from 'rxjs';
+
+import { ButtonComponent } from './components/button/button.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgIconComponent, DecimalPipe],
+  imports: [NgIconComponent, DecimalPipe, ButtonComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   providers: [
@@ -39,7 +40,15 @@ export class AppComponent {
   title = 'bingetap';
   isDarkMode = signal<boolean>(false);
   tapCount = signal<number>(0);
-
+  footerLinks = signal<{ title: string; url: string }[]>([
+    { title: 'Contact Developer', url: 'mailto:rayanulhassan@outlook.com' },
+    { title: 'Github', url: 'https://github.com/rayanulhassan/bingetap' },
+    {
+      title: 'Hire Developer',
+      url: 'https://www.upwork.com/freelancers/hassanr33?mp_source=share',
+    },
+    // {title: 'Buy me a Coffee', url: ''},
+  ]);
   iconColor = computed(() => {
     return this.isDarkMode() ? '#F5F4F4' : '#333333';
   });
@@ -66,11 +75,11 @@ export class AppComponent {
     this.uiService.toggleFullscreen();
   }
 
-  onTap(){
+  onTap() {
     this.tapCount.set(this.tapCount() + 1);
   }
 
-  onReset(){
+  onReset() {
     this.tapCount.set(0);
   }
 }
