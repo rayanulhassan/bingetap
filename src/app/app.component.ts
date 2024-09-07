@@ -64,7 +64,7 @@ export class AppComponent {
         this.isDarkMode.set(true);
       else this.isDarkMode.set(false);
 
-      this.openSettingsModal()
+
 
       window
         .matchMedia('(prefers-color-scheme: dark)')

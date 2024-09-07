@@ -34,7 +34,7 @@
       <div class="text-[10rem] font-bold text-text-primary">
         {{ tapCount() | number}}
       </div>
-      <span class="text-accent">Start tapping anywhere on screen! :)</span>
+      <span class="text-text-primary ">Start tapping anywhere on screen! :)</span>
     </div>
 
     <div class="absolute bottom-2 left-2">
@@ -42,9 +42,9 @@
         <!-- stats -->
         <div>
           <ul class="opacity-60">
-            <li class="text-sm text-accent">Tap Speed: {{'20' | number}}/min</li>
-            <li class="text-sm text-accent">Tap this lap: {{'209' | number}}</li>
-            <li class="text-sm text-accent">Total laps: {{'2' | number}}</li>
+            <li class="text-sm text-text-primary">Tap Speed: {{'20' | number}}/min</li>
+            <li class="text-sm text-text-primary">Tap this lap: {{'209' | number}}</li>
+            <li class="text-sm text-text-primary">Total laps: {{'2' | number}}</li>
           </ul>
         </div>
         <app-button class="z-20" [text]="'Enable Autosave'" [icon]="'phosphorFloppyDisk'"
@@ -68,17 +68,17 @@
   <footer>
     <div class="sm:absolute sm:w-full sm:bottom-2 sm:left-0">
       <div class="flex flex-col justify-around gap-y-1">
-        <p class="text-center text-xs text-accent opacity-60">Bingetap is, and always will be <b>free</b></p>
+        <p class="text-center text-xs text-text-primary dark:text-text-accent  opacity-60">Bingetap is, and always will be <b>free</b></p>
         <div class="text-center">
           @for (item of footerLinks(); track $index) {
-          <a class="relative underline text-accent hover:font-semibold hover:text-accent hover:underline opacity-60 text-xs z-20"
+          <a class="relative underline text-text-primary dark:text-text-accent hover:font-semibold hover:text-text-primary dark:hover:dark:text-text-accent hover:underline opacity-60 text-xs z-20"
             [href]="item.url">{{item.title}}</a>
           @if (!$last) {
-          <span class="mx-2 text-accent opacity-60">|</span>
+          <span class="mx-2 text-text-primary dark:text-text-accent opacity-60">|</span>
           }
           }
         </div>
-        <p class="text-center text-xs text-accent opacity-40">Made with ❤️ in Angular</p>
+        <p class="text-center text-xs text-text-primary dark:text-text-accent  opacity-40">Made with ❤️ in Angular</p>
       </div>
     </div>
   </footer>
