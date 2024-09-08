@@ -92,6 +92,7 @@ export class AppComponent {
       nzTitle: 'Settings',
       nzContent: SettingsModalComponent,
       nzFooter: null,
+      nzNoAnimation:true
       
     });
   }
