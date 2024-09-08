@@ -1,4 +1,4 @@
-<button class="p-2 flex items-start gap-1 transform translate-x-0 transition-all ease-in duration-200  border-accent cursor-pointer"
+<button class="p-2 flex items-center gap-1 transform translate-x-0 transition-all ease-in duration-200  border-accent cursor-pointer"
     [ngClass]="{
         'bg-primary': !isActive(),
         'bg-accent': isActive(),
@@ -12,6 +12,6 @@
         [name]="icon()"></ng-icon>
     }
     @if (text()) {
-    <span class="text-center" [ngClass]="{'text-text-primary':!isActive(),'text-text-accent':isActive()}">{{text()}}</span>
+    <div class="text-center" [ngClass]="{'text-text-primary':!isActive(),'text-text-accent':isActive()}">{{text()}}</div>
     }
 </button>
