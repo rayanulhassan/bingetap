@@ -22,10 +22,8 @@ const saveStateInLocalstorage = (state: AppState) => {
 };
 
 const vibrate = (pattern: number[]) => {
-  if (Object.keys(navigator).includes('vibrate')) {
-    console.log('vibrating');
+  console.log('vibrate');
     navigator.vibrate(pattern);
-  }
 };
 
 export const initialState: AppState = {
