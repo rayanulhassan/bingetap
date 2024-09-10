@@ -17,4 +17,5 @@ export class ButtonComponent {
   isActive = input<boolean>(false);
   isRound = input<boolean>(false);
   enableBorder = input<boolean>(false);
+  classes = input<string>("");
 }
