@@ -24,6 +24,8 @@
     "@ng-icons/core": "^29.5.0",
     "@ng-icons/heroicons": "^29.5.0",
     "@ng-icons/phosphor-icons": "^29.5.0",
+    "@ngrx/component": "^18.0.2",
+    "@ngrx/store": "^18.0.2",
     "express": "^4.18.2",
     "ng-zorro-antd": "^18.1.1",
     "rxjs": "~7.8.0",

@@ -5,7 +5,7 @@
                 <div class="text-text-primary font-semibold">Vibrate on tap</div>
             </div>
             <div class="flex items-center">
-                <app-switchbox></app-switchbox>
+                <app-switchbox [checked]="vibrateOnTap()" (onChange)="onVibrationSettingsChange($event)"></app-switchbox>
             </div>
         </div>
         <div

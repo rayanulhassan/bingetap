@@ -13,16 +13,29 @@ import {
   phosphorArrowCounterClockwise,
   phosphorCornersOut,
 } from '@ng-icons/phosphor-icons/regular';
-import { DecimalPipe } from '@angular/common';
+import { AsyncPipe, DecimalPipe, NgClass } from '@angular/common';
 import { UiService } from './services/ui.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ButtonComponent } from './components/ui/button/button.component';
 import { SettingsModalComponent } from './components/settings-modal/settings-modal.component';
+import { Store } from '@ngrx/store';
+import {
+  selectCounter,
+  selectIsAutosaveEnabled,
+} from './state/app/app.selectors';
+import {
+  DisableAutosave,
+  EnableAutosave,
+  GetDataFromLocalstorage,
+  IncrementCounter,
+  ResetCounter,
+} from './state/app/app.actions';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgIconComponent, DecimalPipe, ButtonComponent],
+  imports: [NgIconComponent, DecimalPipe, ButtonComponent, AsyncPipe, NgClass],
   templateUrl: './app.component.html',
   providers: [
     NzModalService,
@@ -38,10 +51,11 @@ import { SettingsModalComponent } from './components/settings-modal/settings-mod
 export class AppComponent {
   private uiService = inject(UiService);
   private modelService = inject(NzModalService);
+  private store = inject(Store);
 
-  title = 'bingetap';
+  firstTapTime: number | null = null;
+
   isDarkMode = signal<boolean>(false);
-  tapCount = signal<number>(0);
   footerLinks = signal<{ title: string; url: string }[]>([
     { title: 'Contact Developer', url: 'mailto:rayanulhassan@outlook.com' },
     { title: 'Github', url: 'https://github.com/rayanulhassan/bingetap' },
@@ -55,6 +69,23 @@ export class AppComponent {
     return this.isDarkMode() ? '#F5F4F4' : '#333333';
   });
 
+  isAutosaveEnabled = toSignal(this.store.select(selectIsAutosaveEnabled), {
+    initialValue: true,
+  });
+  counter = toSignal(this.store.select(selectCounter), {
+    initialValue: 0,
+  });
+  tapSpeed = computed<number>(() => {
+    const counter = this.counter();
+    if (this.firstTapTime === null) return 0;
+    const currentTime = new Date().getTime()
+    const timeElapsed = (currentTime - this.firstTapTime) / 1000 / 60; // Convert milliseconds to minutes
+    return Math.round(counter / timeElapsed);
+  });
+  autosaveButtonText = computed<string>(() => {
+    return this.isAutosaveEnabled() ? 'Disable Autosave' : 'Enable Autosave';
+  });
+
   constructor() {
     afterNextRender(() => {
       if (
@@ -64,14 +95,14 @@ export class AppComponent {
         this.isDarkMode.set(true);
       else this.isDarkMode.set(false);
 
-
-
       window
         .matchMedia('(prefers-color-scheme: dark)')
         .addEventListener('change', (event) => {
           if (event.matches) this.isDarkMode.set(true);
           else this.isDarkMode.set(false);
         });
+
+      this.store.dispatch(GetDataFromLocalstorage());
     });
   }
 
@@ -80,11 +111,13 @@ export class AppComponent {
   }
 
   onTap() {
-    this.tapCount.set(this.tapCount() + 1);
+    if (this.firstTapTime === null) this.firstTapTime = new Date().getTime();
+    this.store.dispatch(IncrementCounter());
   }
 
   onReset() {
-    this.tapCount.set(0);
+    this.store.dispatch(ResetCounter());
+    this.firstTapTime = null
   }
 
   openSettingsModal() {
@@ -92,8 +125,12 @@ export class AppComponent {
       nzTitle: 'Settings',
       nzContent: SettingsModalComponent,
       nzFooter: null,
-      nzNoAnimation:true
-      
+      nzNoAnimation: true,
     });
+  }
+
+  updateAutosaveSetting(enableSetting: boolean) {
+    if (!enableSetting) this.store.dispatch(DisableAutosave());
+    else this.store.dispatch(EnableAutosave());
   }
 }

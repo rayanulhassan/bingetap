@@ -12,6 +12,6 @@
         [name]="icon()"></ng-icon>
     }
     @if (text()) {
-    <div class="text-center w-full" [ngClass]="{'text-text-primary':!isActive(),'text-text-accent':isActive()}">{{text()}}</div>
+    <div class="text-center" [ngClass]="{'text-text-primary':!isActive(),'text-text-accent':isActive()}">{{text()}}</div>
     }
 </button>
