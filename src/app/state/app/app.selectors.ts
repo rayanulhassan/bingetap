@@ -37,3 +37,12 @@ export const selectLapCompletionIndicator = createSelector(
   (state: AppState) => state.settings.lapCompletionIndicatior
 );
 
+export const selectLapTapsCounter = createSelector(
+  selectApp,
+  (state: AppState) => state.lapTapsCounter
+);
+
+export const selectLapsCount = createSelector(
+  selectApp,
+  (state: AppState) => state.laps
+);

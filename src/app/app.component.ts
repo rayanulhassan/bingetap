@@ -22,6 +22,9 @@ import { Store } from '@ngrx/store';
 import {
   selectCounter,
   selectIsAutosaveEnabled,
+  selectLapsCount,
+  selectLapsSettings,
+  selectLapTapsCounter,
 } from './state/app/app.selectors';
 import {
   DisableAutosave,
@@ -75,6 +78,19 @@ export class AppComponent {
   counter = toSignal(this.store.select(selectCounter), {
     initialValue: 0,
   });
+
+  lapsSettings = toSignal(this.store.select(selectLapsSettings), {
+    initialValue: false,
+  });
+
+  laps = toSignal(this.store.select(selectLapsCount), {
+    initialValue: 0,
+  })
+
+  lapTapsCounter = toSignal(this.store.select(selectLapTapsCounter), {
+    initialValue: 0,
+  })
+
   tapSpeed = computed<number>(() => {
     const counter = this.counter();
     if (this.firstTapTime === null) return 0;

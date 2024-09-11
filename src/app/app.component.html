@@ -48,14 +48,17 @@
         <div>
           <ul class="opacity-60">
             <li class="text-sm text-text-primary">Tap Speed: {{tapSpeed() | number}}/min</li>
-            <!-- <li class="text-sm text-text-primary">Tap this lap: {{'209' | number}}</li>
-            <li class="text-sm text-text-primary">Total laps: {{'2' | number}}</li> -->
+            @if (lapsSettings()) {
+            <li class="text-sm text-text-primary">Tap this lap: {{lapTapsCounter() | number}}</li>
+            <li class="text-sm text-text-primary">Total laps: {{laps()| number}}</li>
+            }
+
           </ul>
         </div>
 
-        <app-button  (click)="isAutosaveEnabled() ? updateAutosaveSetting(false): updateAutosaveSetting(true)"
-          [isActive]="isAutosaveEnabled()" [classes]="'w-[156px]'" class="z-20" [text]="autosaveButtonText()" [icon]="'phosphorFloppyDisk'"
-          [enableBorder]="true"></app-button>
+        <app-button (click)="isAutosaveEnabled() ? updateAutosaveSetting(false): updateAutosaveSetting(true)"
+          [isActive]="isAutosaveEnabled()" [classes]="'w-[156px]'" class="z-20" [text]="autosaveButtonText()"
+          [icon]="'phosphorFloppyDisk'" [enableBorder]="true"></app-button>
 
 
       </div>

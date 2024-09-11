@@ -19,6 +19,8 @@ const LC_KEY = 'bingetap-lc-db';
 
 export interface AppState {
   counter: number;
+  lapTapsCounter: number;
+  laps: number;
   settings: Settings;
 }
 
@@ -27,18 +29,20 @@ const saveStateInLocalstorage = (state: AppState) => {
 };
 
 const vibrate = (pattern: number[]) => {
-    navigator.vibrate(pattern);
+  navigator.vibrate(pattern);
 };
 
-const playSound = (source:string) => {
-  let audio: HTMLAudioElement = new Audio(`../../../assets/sounds/${source}.mp3`);
+const playSound = (source: string) => {
+  let audio: HTMLAudioElement = new Audio(
+    `../../../assets/sounds/${source}.mp3`
+  );
   audio.play();
 };
 
-
-
 export const initialState: AppState = {
   counter: 0,
+  laps: 0,
+  lapTapsCounter: 0,
   settings: {
     isAutosaveEnabled: true,
     backgroundImage: null,
@@ -57,20 +61,49 @@ export const appReducer = createReducer(
     const data = localStorage.getItem(LC_KEY);
     if (data) state = JSON.parse(data) as AppState;
     else localStorage.setItem(LC_KEY, JSON.stringify(state));
+
+    if (!state.settings.isAutosaveEnabled) state.counter = 0;
     return state;
   }),
   on(IncrementCounter, (state) => {
     const newState: AppState = { ...state, counter: state.counter + 1 };
-    if(state.settings.vibrateOnTap) vibrate([100]);
-    if (state.settings.isAutosaveEnabled) saveStateInLocalstorage(newState);
-    if(state.settings.tapSound !== 'none') playSound(state.settings.tapSound);
+    if (newState.settings.vibrateOnTap) vibrate([100]);
+    if (newState.settings.isAutosaveEnabled) saveStateInLocalstorage(newState);
+    if (newState.settings.tapSound !== 'none')
+      playSound(newState.settings.tapSound);
+
+    if (newState.settings.laps) {
+      // only when laps settings are on
+      const tapsAllowedPerLaps = newState.settings.tapsPerLap; // allowed taps per lap
+
+      if (newState.lapTapsCounter + 1 === tapsAllowedPerLaps) {
+        // if incrementing a lap tap counter results in lap tap counter = tapsAllowedPerLaps,
+        // instead of incrementing lap tap counter, set it to 0 and increment lap counter to
+        // show a lap has completed
+        newState.lapTapsCounter = 0;
+        newState.laps += 1;
+        if (
+          newState.settings.lapCompletionIndicatior === 'sound' ||
+          newState.settings.lapCompletionIndicatior === 'sound & vibrate'
+        )
+          playSound('lap-alert');
+
+        if (
+          newState.settings.lapCompletionIndicatior === 'vibrate' ||
+          newState.settings.lapCompletionIndicatior === 'sound & vibrate'
+        )
+          vibrate([150]);
+      } else if (newState.lapTapsCounter + 1 < tapsAllowedPerLaps) {
+        newState.lapTapsCounter += 1;
+      }
+    }
     return newState;
   }),
   on(ResetCounter, (state) => {
     {
       const newState: AppState = { ...state, counter: 0 };
       if (state.settings.isAutosaveEnabled) saveStateInLocalstorage(newState);
-      if(state.settings.vibrateOnTap) vibrate([150]);
+      if (state.settings.vibrateOnTap) vibrate([150]);
       return newState;
     }
   }),
@@ -122,7 +155,8 @@ export const appReducer = createReducer(
         settings: { ...state.settings, tapSound: sound },
       };
       saveStateInLocalstorage(newState);
-      if(newState.settings.tapSound !== 'none') playSound(newState.settings.tapSound);
+      if (newState.settings.tapSound !== 'none')
+        playSound(newState.settings.tapSound);
       return newState;
     }
   }),
@@ -130,6 +164,8 @@ export const appReducer = createReducer(
     {
       const newState: AppState = {
         ...state,
+        laps: 0,
+        lapTapsCounter: 0,
         settings: { ...state.settings, laps: true },
       };
       saveStateInLocalstorage(newState);
@@ -156,7 +192,6 @@ export const appReducer = createReducer(
       return newState;
     }
   }),
-
   on(SetLapCompletionIndicator, (state, { indicator }) => {
     {
       const newState: AppState = {
@@ -166,5 +201,5 @@ export const appReducer = createReducer(
       saveStateInLocalstorage(newState);
       return newState;
     }
-  }),
+  })
 );

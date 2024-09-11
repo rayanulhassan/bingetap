@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { LapCompletionIndicatorType, TapSounds, TapSoundType } from '../../models/settings';
+import { LapCompletionIndicatorType, TapSoundType } from '../../models/settings';
 
 export const GetDataFromLocalstorage = createAction(
   '[Counter] Get Data From Localstorage',

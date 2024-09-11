@@ -1,5 +1,5 @@
 export const TapSounds = ['none', 'option-1' ,'option-2' , 'option-3'] as const;
-export const LapCompletionIndicators = ['none', 'vibrate' , 'sound'] as const;
+export const LapCompletionIndicators = ['none', 'vibrate' , 'sound', 'sound & vibrate'] as const;
 export type TapSoundType = typeof TapSounds[number];
 export type LapCompletionIndicatorType = typeof LapCompletionIndicators[number];
 
