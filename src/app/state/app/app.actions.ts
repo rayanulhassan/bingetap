@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { TapSounds, TapSoundType } from '../../models/settings';
+import { LapCompletionIndicatorType, TapSounds, TapSoundType } from '../../models/settings';
 
 export const GetDataFromLocalstorage = createAction(
   '[Counter] Get Data From Localstorage',
@@ -31,4 +31,21 @@ export const DisableVibrateOnTap = createAction(
 export const SetSoundOnTap = createAction(
   '[Counter] Set Sound On Tap',
   props<{ sound: TapSoundType }>()
+);
+export const EnableLaps = createAction(
+  '[Counter] Enable Laps',
+);
+
+export const DisbaleLaps = createAction(
+  '[Counter] Disable Laps',
+);
+
+export const SetTapsPerLap = createAction(
+  '[Counter] Set Taps Per Laps',
+  props<{ tapCount: number }>()
+);
+
+export const SetLapCompletionIndicator = createAction(
+  '[Counter] Set Laps Completion Indicator',
+  props<{ indicator: LapCompletionIndicatorType }>()
 );

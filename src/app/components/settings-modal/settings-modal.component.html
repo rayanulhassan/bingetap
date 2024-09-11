@@ -29,11 +29,10 @@
         <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-md">
             <div class="flex flex-row justify-between items-center">
                 <div>
-                    <div class="text-text-primary font-semibold">Sound on tap {{soundOnTap()}}</div>
+                    <div class="text-text-primary font-semibold">Sound on tap</div>
                 </div>
                 <div class="flex items-center">
-                    <select class="w-24 p-1 rounded-sm" 
-                    (change)="onSoundOnTapSettingsChange($event)">
+                    <select class="w-24 p-1 rounded-sm" (change)="onSoundOnTapSettingsChange($event)">
                         @for (sound of tapSounds; track $index) {
                         <option [value]="sound" [selected]="sound === soundOnTap()">{{sound}}</option>
                         }
@@ -44,42 +43,43 @@
     </div>
 
     <div>
-        <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-md">
+        <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-mdm transition-all duration-100">
             <div class="flex flex-row justify-between items-center">
                 <div>
                     <div class="text-text-primary font-semibold">Enable laps</div>
                 </div>
                 <div class="flex items-center">
-                    <app-switchbox></app-switchbox>
+                    <app-switchbox [checked]="lapsSetting()" (onChange)="onLapsSettingsChange($event)"></app-switchbox>
                 </div>
             </div>
 
+            @if (lapsSetting()) {
             <div class="pl-2 pt-2 flex flex-col gap-y-2">
                 <div class="w-full flex gap-x-2 justify-between bg-primary rounded-t-md">
                     <div class="flex items-center">
                         <div class="text-text-primary">Taps per lap</div>
                     </div>
                     <div class="flex items-center">
-                        <input type="number" placeholder="100" class="w-24 p-1 rounded-sm" />
+                        <input type="number" min="1" [value]="tapsPerLap()" (change)="onLapsPerTapChange($event)"
+                            placeholder="100" class="w-24 p-1 rounded-sm" />
                     </div>
                 </div>
-
-
-
                 <div class="w-full flex gap-x-2 justify-between bg-primary rounded-t-md">
                     <div class="flex items-center">
                         <div class="text-text-primary">Lap completion indicator</div>
                     </div>
                     <div class="flex items-center">
-                        <select class="w-24 p-1 rounded-sm">
-                            <option>None</option>
-                            <option>Vibrate</option>
-                            <option>Flash</option>
-                            <option>Sound</option>
+                        <select (change)="onLapCompletionIndicatorChange($event)" class="w-24 p-1 rounded-sm">
+                            @for (option of lapCompletionIndicartors; track $index) {
+                            <option [value]="option" [selected]="option === lapCompletionIndicator()">{{option}}
+                            </option>
+                            }
                         </select>
                     </div>
                 </div>
             </div>
+            }
+
         </div>
     </div>
 

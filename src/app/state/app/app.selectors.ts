@@ -23,3 +23,17 @@ export const selectTapSound = createSelector(
   (state: AppState) => state.settings.tapSound
 );
 
+export const selectLapsSettings = createSelector(
+  selectApp,
+  (state: AppState) => state.settings.laps
+);
+
+export const selectTapsPerLap = createSelector(
+  selectApp,
+  (state: AppState) => state.settings.tapsPerLap
+);
+export const selectLapCompletionIndicator = createSelector(
+  selectApp,
+  (state: AppState) => state.settings.lapCompletionIndicatior
+);
+

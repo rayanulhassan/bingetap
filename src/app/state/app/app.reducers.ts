@@ -2,12 +2,16 @@ import { createReducer, on } from '@ngrx/store';
 import {
   DisableAutosave,
   DisableVibrateOnTap,
+  DisbaleLaps,
   EnableAutosave,
+  EnableLaps,
   EnableVibrateOnTap,
   GetDataFromLocalstorage,
   IncrementCounter,
   ResetCounter,
+  SetLapCompletionIndicator,
   SetSoundOnTap,
+  SetTapsPerLap,
 } from './app.actions';
 import { Settings } from '../../models/settings';
 
@@ -40,7 +44,7 @@ export const initialState: AppState = {
     backgroundImage: null,
     counterColor: 'default',
     lapCompletionIndicatior: 'vibrate',
-    laps: true,
+    laps: false,
     tapSound: 'none',
     tapsPerLap: 10,
     vibrateOnTap: true,
@@ -121,5 +125,46 @@ export const appReducer = createReducer(
       if(newState.settings.tapSound !== 'none') playSound(newState.settings.tapSound);
       return newState;
     }
-  })
+  }),
+  on(EnableLaps, (state) => {
+    {
+      const newState: AppState = {
+        ...state,
+        settings: { ...state.settings, laps: true },
+      };
+      saveStateInLocalstorage(newState);
+      return newState;
+    }
+  }),
+  on(DisbaleLaps, (state) => {
+    {
+      const newState: AppState = {
+        ...state,
+        settings: { ...state.settings, laps: false },
+      };
+      saveStateInLocalstorage(newState);
+      return newState;
+    }
+  }),
+  on(SetTapsPerLap, (state, { tapCount }) => {
+    {
+      const newState: AppState = {
+        ...state,
+        settings: { ...state.settings, tapsPerLap: tapCount },
+      };
+      saveStateInLocalstorage(newState);
+      return newState;
+    }
+  }),
+
+  on(SetLapCompletionIndicator, (state, { indicator }) => {
+    {
+      const newState: AppState = {
+        ...state,
+        settings: { ...state.settings, lapCompletionIndicatior: indicator },
+      };
+      saveStateInLocalstorage(newState);
+      return newState;
+    }
+  }),
 );
