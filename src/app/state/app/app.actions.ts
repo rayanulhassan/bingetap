@@ -49,3 +49,8 @@ export const SetLapCompletionIndicator = createAction(
   '[Counter] Set Laps Completion Indicator',
   props<{ indicator: LapCompletionIndicatorType }>()
 );
+
+export const SetBackgroundImage = createAction(
+  '[Counter] Set Background Image',
+  props<{ buffer:string | null }>()
+);

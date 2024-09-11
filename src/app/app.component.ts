@@ -13,13 +13,14 @@ import {
   phosphorArrowCounterClockwise,
   phosphorCornersOut,
 } from '@ng-icons/phosphor-icons/regular';
-import { AsyncPipe, DecimalPipe, NgClass } from '@angular/common';
+import { AsyncPipe, DecimalPipe, NgClass, NgStyle } from '@angular/common';
 import { UiService } from './services/ui.service';
 import { NzModalService } from 'ng-zorro-antd/modal';
 import { ButtonComponent } from './components/ui/button/button.component';
 import { SettingsModalComponent } from './components/settings-modal/settings-modal.component';
 import { Store } from '@ngrx/store';
 import {
+  selectBackgroundImage,
   selectCounter,
   selectIsAutosaveEnabled,
   selectLapsCount,
@@ -38,7 +39,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgIconComponent, DecimalPipe, ButtonComponent, AsyncPipe, NgClass],
+  imports: [NgIconComponent, DecimalPipe, ButtonComponent, AsyncPipe, NgClass,NgStyle],
   templateUrl: './app.component.html',
   providers: [
     NzModalService,
@@ -89,6 +90,10 @@ export class AppComponent {
 
   lapTapsCounter = toSignal(this.store.select(selectLapTapsCounter), {
     initialValue: 0,
+  })
+
+  backgroundImage= toSignal(this.store.select(selectBackgroundImage), {
+    initialValue: null,
   })
 
   tapSpeed = computed<number>(() => {

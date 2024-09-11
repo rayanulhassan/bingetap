@@ -46,3 +46,8 @@ export const selectLapsCount = createSelector(
   selectApp,
   (state: AppState) => state.laps
 );
+
+export const selectBackgroundImage = createSelector(
+  selectApp,
+  (state: AppState) => state.settings.backgroundImage
+);

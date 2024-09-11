@@ -6,6 +6,7 @@ import { NzColorPickerComponent } from 'ng-zorro-antd/color-picker';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import {
+  selectBackgroundImage,
   selectLapCompletionIndicator,
   selectLapsSettings,
   selectTapSound,
@@ -17,11 +18,17 @@ import {
   DisbaleLaps,
   EnableLaps,
   EnableVibrateOnTap,
+  SetBackgroundImage,
   SetLapCompletionIndicator,
   SetSoundOnTap,
   SetTapsPerLap,
 } from '../../state/app/app.actions';
-import { LapCompletionIndicators, LapCompletionIndicatorType, TapSounds, TapSoundType } from '../../models/settings';
+import {
+  LapCompletionIndicators,
+  LapCompletionIndicatorType,
+  TapSounds,
+  TapSoundType,
+} from '../../models/settings';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -61,8 +68,14 @@ export class SettingsModalComponent {
   tapsPerLap = toSignal(this.store.select(selectTapsPerLap), {
     initialValue: 10,
   });
-  lapCompletionIndicator = toSignal(this.store.select(selectLapCompletionIndicator), {
-    initialValue: 'vibrate',
+  lapCompletionIndicator = toSignal(
+    this.store.select(selectLapCompletionIndicator),
+    {
+      initialValue: 'vibrate',
+    }
+  );
+  backgoundImage = toSignal(this.store.select(selectBackgroundImage), {
+    initialValue: null,
   })
 
   onVibrationSettingsChange(checkboxValue: boolean) {
@@ -86,7 +99,25 @@ export class SettingsModalComponent {
   }
 
   onLapCompletionIndicatorChange(event: Event) {
-    const indicator = (event.target as HTMLInputElement).value as LapCompletionIndicatorType;
+    const indicator = (event.target as HTMLInputElement)
+      .value as LapCompletionIndicatorType;
     this.store.dispatch(SetLapCompletionIndicator({ indicator }));
+  }
+
+  onBackgroundImageSet(event: Event) {
+    const files = (event.target as HTMLInputElement).files;
+    if (files && files[0]) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const buffer = e.target?.result as string;
+        this.store.dispatch(SetBackgroundImage({ buffer }));
+      };
+      reader.readAsDataURL(files[0]);
+    }
+  }
+
+  onBackgroundImageReset() {
+    const buffer = null;
+    this.store.dispatch(SetBackgroundImage({ buffer }));
   }
 }

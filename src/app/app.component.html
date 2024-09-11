@@ -31,12 +31,12 @@
   <main>
     <!-- Counter -->
     <div class="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center">
-      <div class="text-[10rem] font-bold text-text-primary">
+      <div class="text-[10rem] font-bold text-text-primary z-[1]">
         {{ counter() | number}}
       </div>
       <span [ngClass]="{
         'opacity-0' : counter()  > 0
-      }" class="text-text-primary transition-all duration-100">Start tapping anywhere on screen! :)</span>
+      }" class="text-text-primary transition-all duration-100 z-[1]">Start tapping anywhere on screen! :)</span>
       <!-- @if(((counter$ | async) ?? 0) === 0){
       } -->
 
@@ -45,8 +45,8 @@
     <div class="absolute bottom-2 left-2">
       <div class="flex flex-col gap-2">
         <!-- stats -->
-        <div>
-          <ul class="opacity-60">
+        <div class="opacity-60 z-[1]">
+          <ul>
             <li class="text-sm text-text-primary">Tap Speed: {{tapSpeed() | number}}/min</li>
             @if (lapsSettings()) {
             <li class="text-sm text-text-primary">Tap this lap: {{lapTapsCounter() | number}}</li>
@@ -71,8 +71,11 @@
       </div>
     </div>
 
-    <div (click)="onTap()" style="background-image: url();"
-      class="absolute top-0 left-0 w-full h-screen z-10 bg-contain bg-no-repeat bg-center">
+    <div (click)="onTap()"
+      class="absolute top-0 left-0 w-full h-screen z-10">
+    </div>
+    <div [ngStyle]="{'background-image': 'url(' + (backgroundImage() === null ? '' : backgroundImage() ) + ')'}" style="background-image: url();"
+      class="absolute top-0 left-0 w-full h-screen z-0 bg-contain bg-no-repeat bg-center">
     </div>
   </main>
 

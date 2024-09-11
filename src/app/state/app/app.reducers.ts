@@ -9,6 +9,7 @@ import {
   GetDataFromLocalstorage,
   IncrementCounter,
   ResetCounter,
+  SetBackgroundImage,
   SetLapCompletionIndicator,
   SetSoundOnTap,
   SetTapsPerLap,
@@ -197,6 +198,16 @@ export const appReducer = createReducer(
       const newState: AppState = {
         ...state,
         settings: { ...state.settings, lapCompletionIndicatior: indicator },
+      };
+      saveStateInLocalstorage(newState);
+      return newState;
+    }
+  }),
+  on(SetBackgroundImage, (state, { buffer }) => {
+    {
+      const newState: AppState = {
+        ...state,
+        settings: { ...state.settings, backgroundImage: buffer },
       };
       saveStateInLocalstorage(newState);
       return newState;
