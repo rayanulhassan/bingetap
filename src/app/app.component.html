@@ -31,7 +31,9 @@
   <main>
     <!-- Counter -->
     <div class="absolute top-0 left-0 w-full h-screen flex flex-col items-center justify-center">
-      <div class="text-[10rem] font-bold text-text-primary z-[1]">
+      <div class="text-[10rem] font-bold z-[1]" [ngClass]="{
+        'text-text-primary': counterColor() === 'default'
+      }" [ngStyle]="{'color': (counterColor() === 'default' ? null : ''+counterColor() + '')}">
         {{ counter() | number}}
       </div>
       <span [ngClass]="{
@@ -71,10 +73,10 @@
       </div>
     </div>
 
-    <div (click)="onTap()"
-      class="absolute top-0 left-0 w-full h-screen z-10">
+    <div (click)="onTap()" class="absolute top-0 left-0 w-full h-screen z-10">
     </div>
-    <div [ngStyle]="{'background-image': 'url(' + (backgroundImage() === null ? '' : backgroundImage() ) + ')'}" style="background-image: url();"
+    <div [ngStyle]="{'background-image': 'url(' + (backgroundImage() === null ? '' : backgroundImage() ) + ')'}"
+      style="background-image: url();"
       class="absolute top-0 left-0 w-full h-screen z-0 bg-contain bg-no-repeat bg-center">
     </div>
   </main>

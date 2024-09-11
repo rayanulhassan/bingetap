@@ -10,6 +10,7 @@ import {
   IncrementCounter,
   ResetCounter,
   SetBackgroundImage,
+  SetCounterColor,
   SetLapCompletionIndicator,
   SetSoundOnTap,
   SetTapsPerLap,
@@ -208,6 +209,16 @@ export const appReducer = createReducer(
       const newState: AppState = {
         ...state,
         settings: { ...state.settings, backgroundImage: buffer },
+      };
+      saveStateInLocalstorage(newState);
+      return newState;
+    }
+  }),
+  on(SetCounterColor, (state, { color }) => {
+    {
+      const newState: AppState = {
+        ...state,
+        settings: { ...state.settings, counterColor: color },
       };
       saveStateInLocalstorage(newState);
       return newState;

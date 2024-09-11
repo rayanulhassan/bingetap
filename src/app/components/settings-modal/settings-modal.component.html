@@ -95,10 +95,11 @@
                         class="w-24 p-1 rounded-sm" />
                     }
                     @else {
-                        <div class="flex flex-col items-center justify-center">
-                            <img [src]="backgoundImage()" [style.width.px]="50" [style.height.px]="50" />
-                            <a (click)="onBackgroundImageReset()" class="text-text-primary hover:text-text-primary hover:font-semibold hover:underline text-sm underline cursor-pointer">Reset</a>
-                        </div>
+                    <div class="flex flex-col items-center justify-center">
+                        <img [src]="backgoundImage()" [style.width.px]="50" [style.height.px]="50" />
+                        <a (click)="onBackgroundImageReset()"
+                            class="text-text-primary hover:text-text-primary hover:font-semibold hover:underline text-sm underline cursor-pointer">Reset</a>
+                    </div>
                     }
                 </div>
             </div>
@@ -119,10 +120,16 @@
         <div class="w-full flex flex-col gap-x-2  bg-primary p-3 rounded-md">
             <div class="flex flex-row justify-between items-center">
                 <div>
-                    <div class="text-text-primary font-semibold">Counter color</div>
+                    <div class="text-text-primary font-semibold">Counter color {{counterColor()}}</div>
                 </div>
-                <div class="flex items-center">
-                    <nz-color-picker></nz-color-picker>
+                <div class="flex flex-col items-center">
+                    <nz-color-picker [nzValue]="counterColor() === 'default' ? '#fff' : counterColor()"
+                        (nzOnChange)="onColorChange($event.color)"></nz-color-picker>
+                    @if(counterColor() !== 'default'){
+                    <a (click)="onResetColorChange()"
+                        class="text-text-primary hover:text-text-primary hover:font-semibold hover:underline text-sm underline cursor-pointer">Reset</a>
+                    }
+
                 </div>
             </div>
         </div>

@@ -54,3 +54,8 @@ export const SetBackgroundImage = createAction(
   '[Counter] Set Background Image',
   props<{ buffer:string | null }>()
 );
+
+export const SetCounterColor = createAction(
+  '[Counter] Set Counter Color',
+  props<{ color :string }>()
+);

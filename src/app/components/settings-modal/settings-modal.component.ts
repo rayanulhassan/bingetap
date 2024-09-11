@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { SwitchboxComponent } from '../ui/switchbox/switchbox.component';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroInformationCircle } from '@ng-icons/heroicons/outline';
-import { NzColorPickerComponent } from 'ng-zorro-antd/color-picker';
+import { NzColor, NzColorPickerComponent } from 'ng-zorro-antd/color-picker';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import {
   selectBackgroundImage,
+  selectCounterColor,
   selectLapCompletionIndicator,
   selectLapsSettings,
   selectTapSound,
@@ -19,6 +20,7 @@ import {
   EnableLaps,
   EnableVibrateOnTap,
   SetBackgroundImage,
+  SetCounterColor,
   SetLapCompletionIndicator,
   SetSoundOnTap,
   SetTapsPerLap,
@@ -76,7 +78,11 @@ export class SettingsModalComponent {
   );
   backgoundImage = toSignal(this.store.select(selectBackgroundImage), {
     initialValue: null,
-  })
+  });
+
+  counterColor = toSignal(this.store.select(selectCounterColor), {
+    initialValue: 'default',
+  });
 
   onVibrationSettingsChange(checkboxValue: boolean) {
     if (checkboxValue) this.store.dispatch(EnableVibrateOnTap());
@@ -119,5 +125,16 @@ export class SettingsModalComponent {
   onBackgroundImageReset() {
     const buffer = null;
     this.store.dispatch(SetBackgroundImage({ buffer }));
+  }
+
+  onColorChange(event: NzColor) {
+    if (event.isValid) {
+      console.log(event.toHex());
+      this.store.dispatch(SetCounterColor({ color: `#${event.toHex()}` }));
+    }
+  }
+
+  onResetColorChange() {
+    this.store.dispatch(SetCounterColor({ color: 'default' }));
   }
 }

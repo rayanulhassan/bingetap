@@ -51,3 +51,8 @@ export const selectBackgroundImage = createSelector(
   selectApp,
   (state: AppState) => state.settings.backgroundImage
 );
+
+export const selectCounterColor = createSelector(
+  selectApp,
+  (state: AppState) => state.settings.counterColor
+);

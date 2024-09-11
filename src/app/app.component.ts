@@ -22,6 +22,7 @@ import { Store } from '@ngrx/store';
 import {
   selectBackgroundImage,
   selectCounter,
+  selectCounterColor,
   selectIsAutosaveEnabled,
   selectLapsCount,
   selectLapsSettings,
@@ -39,7 +40,14 @@ import { toSignal } from '@angular/core/rxjs-interop';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NgIconComponent, DecimalPipe, ButtonComponent, AsyncPipe, NgClass,NgStyle],
+  imports: [
+    NgIconComponent,
+    DecimalPipe,
+    ButtonComponent,
+    AsyncPipe,
+    NgClass,
+    NgStyle,
+  ],
   templateUrl: './app.component.html',
   providers: [
     NzModalService,
@@ -86,20 +94,24 @@ export class AppComponent {
 
   laps = toSignal(this.store.select(selectLapsCount), {
     initialValue: 0,
-  })
+  });
 
   lapTapsCounter = toSignal(this.store.select(selectLapTapsCounter), {
     initialValue: 0,
-  })
+  });
 
-  backgroundImage= toSignal(this.store.select(selectBackgroundImage), {
+  backgroundImage = toSignal(this.store.select(selectBackgroundImage), {
     initialValue: null,
-  })
+  });
+
+  counterColor = toSignal(this.store.select(selectCounterColor), {
+    initialValue: 'default',
+  });
 
   tapSpeed = computed<number>(() => {
     const counter = this.counter();
     if (this.firstTapTime === null) return 0;
-    const currentTime = new Date().getTime()
+    const currentTime = new Date().getTime();
     const timeElapsed = (currentTime - this.firstTapTime) / 1000 / 60; // Convert milliseconds to minutes
     return Math.round(counter / timeElapsed);
   });
@@ -138,7 +150,7 @@ export class AppComponent {
 
   onReset() {
     this.store.dispatch(ResetCounter());
-    this.firstTapTime = null
+    this.firstTapTime = null;
   }
 
   openSettingsModal() {
