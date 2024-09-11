@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { TapSounds, TapSoundType } from '../../models/settings';
 
 export const GetDataFromLocalstorage = createAction(
   '[Counter] Get Data From Localstorage',
@@ -25,4 +26,9 @@ export const EnableVibrateOnTap = createAction(
 );
 export const DisableVibrateOnTap = createAction(
   '[Counter] Disable Vibrate On Tap',
+);
+
+export const SetSoundOnTap = createAction(
+  '[Counter] Set Sound On Tap',
+  props<{ sound: TapSoundType }>()
 );

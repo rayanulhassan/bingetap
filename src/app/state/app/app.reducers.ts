@@ -7,6 +7,7 @@ import {
   GetDataFromLocalstorage,
   IncrementCounter,
   ResetCounter,
+  SetSoundOnTap,
 } from './app.actions';
 import { Settings } from '../../models/settings';
 
@@ -22,9 +23,15 @@ const saveStateInLocalstorage = (state: AppState) => {
 };
 
 const vibrate = (pattern: number[]) => {
-  console.log('vibrate');
     navigator.vibrate(pattern);
 };
+
+const playSound = (source:string) => {
+  let audio: HTMLAudioElement = new Audio(`../../../assets/sounds/${source}.mp3`);
+  audio.play();
+};
+
+
 
 export const initialState: AppState = {
   counter: 0,
@@ -34,8 +41,7 @@ export const initialState: AppState = {
     counterColor: 'default',
     lapCompletionIndicatior: 'vibrate',
     laps: true,
-    soundOnTap: false,
-    tapSound: 'option-1',
+    tapSound: 'none',
     tapsPerLap: 10,
     vibrateOnTap: true,
   },
@@ -51,15 +57,16 @@ export const appReducer = createReducer(
   }),
   on(IncrementCounter, (state) => {
     const newState: AppState = { ...state, counter: state.counter + 1 };
-    if(state.settings.vibrateOnTap) vibrate([200]);
+    if(state.settings.vibrateOnTap) vibrate([100]);
     if (state.settings.isAutosaveEnabled) saveStateInLocalstorage(newState);
+    if(state.settings.tapSound !== 'none') playSound(state.settings.tapSound);
     return newState;
   }),
   on(ResetCounter, (state) => {
     {
       const newState: AppState = { ...state, counter: 0 };
       if (state.settings.isAutosaveEnabled) saveStateInLocalstorage(newState);
-      if(state.settings.vibrateOnTap) vibrate([400]);
+      if(state.settings.vibrateOnTap) vibrate([150]);
       return newState;
     }
   }),
@@ -89,7 +96,7 @@ export const appReducer = createReducer(
         ...state,
         settings: { ...state.settings, vibrateOnTap: true },
       };
-      vibrate([200]);
+      vibrate([150]);
       saveStateInLocalstorage(newState);
       return newState;
     }
@@ -103,11 +110,16 @@ export const appReducer = createReducer(
       saveStateInLocalstorage(newState);
       return newState;
     }
+  }),
+  on(SetSoundOnTap, (state, { sound }) => {
+    {
+      const newState: AppState = {
+        ...state,
+        settings: { ...state.settings, tapSound: sound },
+      };
+      saveStateInLocalstorage(newState);
+      if(newState.settings.tapSound !== 'none') playSound(newState.settings.tapSound);
+      return newState;
+    }
   })
-
-  // on(signInFailure, (state, { message }) => ({
-  //   ...state,
-  //   errorMessage: message,
-  //   status: AuthStatus.ERROR,
-  // }))
 );

@@ -18,3 +18,8 @@ export const selectVibrateOnTap = createSelector(
   (state: AppState) => state.settings.vibrateOnTap
 );
 
+export const selectTapSound = createSelector(
+  selectApp,
+  (state: AppState) => state.settings.tapSound
+);
+
