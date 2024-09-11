@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import {
   selectBackgroundImage,
   selectCounterColor,
+  selectIsAutosaveEnabled,
   selectLapCompletionIndicator,
   selectLapsSettings,
   selectTapSound,
@@ -15,8 +16,10 @@ import {
   selectVibrateOnTap,
 } from '../../state/app/app.selectors';
 import {
+  DisableAutosave,
   DisableVibrateOnTap,
   DisbaleLaps,
+  EnableAutosave,
   EnableLaps,
   EnableVibrateOnTap,
   SetBackgroundImage,
@@ -84,6 +87,10 @@ export class SettingsModalComponent {
     initialValue: 'default',
   });
 
+  isAutosaveEnabled = toSignal(this.store.select(selectIsAutosaveEnabled), {
+    initialValue: true,
+  });
+
   onVibrationSettingsChange(checkboxValue: boolean) {
     if (checkboxValue) this.store.dispatch(EnableVibrateOnTap());
     else this.store.dispatch(DisableVibrateOnTap());
@@ -136,5 +143,10 @@ export class SettingsModalComponent {
 
   onResetColorChange() {
     this.store.dispatch(SetCounterColor({ color: 'default' }));
+  }
+
+  onAutosaveSettingChange(enableSetting: boolean) {
+    if (!enableSetting) this.store.dispatch(DisableAutosave());
+    else this.store.dispatch(EnableAutosave());
   }
 }
