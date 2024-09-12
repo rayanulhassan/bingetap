@@ -31,7 +31,7 @@ const saveStateInLocalstorage = (state: AppState) => {
 };
 
 const vibrate = (pattern: number[]) => {
-  navigator.vibrate(pattern);
+  if ('vibrate' in navigator) navigator.vibrate(pattern);
 };
 
 const playSound = (source: string) => {
